@@ -4,20 +4,36 @@
 This is a quick little tool I wrote up to modify a [Skate Story](https://store.steampowered.com/app/1263240/Skate_Story/) save file. The tool does its best to auto-locate your file and also creates automatic backups.
 
 # How to Use
-Download a (Windows only for now!) build from the [Releases](https://github.com/7UKECREAT0R/skate-story-save-file-editor/releases) page, unzip all the files, and run the executable. The interface is through a terminal. If you don't see anything appear, try opening the application through Command Prompt, Windows Terminal, or another terminal.
+Download a (Windows only for now!) build from the [Releases](https://github.com/7UKECREAT0R/skate-story-save-file-editor/releases) page, unzip all the files, and run the executable. The interface is through a terminal. If you don't see anything appear (it usually should, though), try opening the program through Command Prompt, Windows Terminal, or another terminal.
 
-# Reverting to Pre-Epilogue
-If you're like me and didn't know the epilogue would end your save file, you've come to the right place.
+# Loading Your Save File
+You can press `A` to automatically obtain your save file which should work 99% of the time on Windows. If it's not working or you want to modify a save file somewhere else, press `M` to manually enter either a `.json` or `.sav` file.
 
-Press `[R]` on the main page and the tool will try its best to revert your save file right to the last playable portion of the game so you can tie up any loose ends or grind out achievements. I've tested this and it DID work for my save file, but if you're having issues, try changing your level to somewhere else.
+# Options
+There's a few options you can use once you've loaded a save file.
 
-# Modifying Achievement Stats
-This is intended mainly for transferring your achievement progress to a new save file, but I won't judge you if you just wanna cheat the achievements (kidding, I am judging you right now).
+## Saving
+You have to save your changes after you're done messing with your savefile! You can choose two different ways to save:
+- `S` Save as .SAV: Saves in SKATE STORY's native compressed format. This is the option you want to use to actually *play* on the file.
+- `J` Save as .JSON: Saves as a .JSON file so you can poke around and tweak stuff.
 
-Press `[A]` on the main page, choose the stat you want to change, and enter the new value.
+## `O` Open Game Directory
+If you let the tool automatically find your save file, you can press `O` to open the directory.
 
-# Changing Levels
-You can press one of the various key combinations to change where the sinkhole (in the Skater's Dream) goes, where you are when you press "Continue", etc. The UI will display any levels you've seen/visited in your save file and let you choose between them. You can also type to filter through their names. Use `[UP]`, `[DOWN]` to navigate and `[ENTER]` to select.
+## `ESC` Exit Without Saving
+Does nothing and closes the program.
 
-# Saving Changes
-Once you've modified your save file, press `[S]` to SAVE the file to disk. It will overwrite your previous file, but a backup will be there with the current date/time appended to the end. Have fun!
+## `A` Change Achievement Counter/Stat
+After pressing this option, you can choose which stat to modify. This is made to transfer your stats to a new save file (kind of like a New Game+). I absolutely will judge you if you use this to cheat achievements.
+- `D` Deaths: Number of times you've died. The "YOU MUST SKATE" achievement requires 500.
+- `T` Tricks: The number of tricks you've popped (not including grinds, manuals, reverses, etc...). The "Over Several Eternities" achievement requires 10,000.
+- `S` Stickers Placed: The number of stickers you've placed on boards. The "Stickerbook" achievement requires 100.
+
+## `R` Revert to Pre-Epilogue
+Reverts your savefile to right before the epilogue. Tested and working, heck yea! Remember to save `S`.
+
+## `L` Change Level
+Changes the level you'll be in once you press "Continue" on the main menu. This is probably the option you want to use to get yourself un-soft-locked. The tool shows the internal names of the levels, but they have a bit of a logical format.
+
+## `Shift + L` Change Sinkhole Level
+Changes the level the sinkhole (in skater's dream) takes you to.
