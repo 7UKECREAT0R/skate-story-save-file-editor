@@ -12,8 +12,8 @@ public class SaveFile
 {
     public const string COMPRESSED_EXTENSION = ".sav";
     public const string UNCOMPRESSED_EXTENSION = ".json";
-    public const string FILE_NAME = "skatestory_savedata0" + COMPRESSED_EXTENSION;
-    public const string BACKUP_FILE_NAME = "skatestory_savedata0_backup{0}" + COMPRESSED_EXTENSION;
+    public const string FILE = "skatestory_savedata0" + COMPRESSED_EXTENSION;
+    public const string BACKUP_FILE_NAME = "skatestory_savedata0_backup{0}";
 
     public readonly string originPath;
     public readonly string originPathJSON;
@@ -80,13 +80,13 @@ public class SaveFile
     public void WriteToConsole()
     {
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine($"- deck count: {this.deckCount}");
-        Console.WriteLine($"- total playtime: {this.totalPlaytimeSeconds / 60.0 / 60.0} hours");
-        Console.WriteLine($"- deaths: {this.deaths} / 500");
-        Console.WriteLine($"- stumbles: {this.stumbles}");
-        Console.WriteLine($"- tricks performed: {this.achievementCounters.TricksPerformed} / 10,000");
-        Console.WriteLine($"- stickers placed: {this.achievementCounters.StickersPlaced} / 100");
-        Console.WriteLine($"- stickers bought: {this.achievementCounters.StickersBought}");
+        Console.WriteLine($"- deck count: {this.deckCount:N0}");
+        Console.WriteLine($"- total playtime: {(Math.Floor(this.totalPlaytimeSeconds / 60.0 / 60.0 * 10.0) / 10.0):N} hours");
+        Console.WriteLine($"- deaths: {this.deaths:N0} / 500");
+        Console.WriteLine($"- stumbles: {this.stumbles:N0}");
+        Console.WriteLine($"- tricks performed: {this.achievementCounters.TricksPerformed:N0} / 10,000");
+        Console.WriteLine($"- stickers placed: {this.achievementCounters.StickersPlaced:N0} / 100");
+        Console.WriteLine($"- stickers bought: {this.achievementCounters.StickersBought:N0}");
         Console.WriteLine($"- 'Continue' level: {this.ContinueLevel.Name}");
         Console.WriteLine($"- sinkhole level: {this.SinkholeLevel.Name}");
         Console.WriteLine();
@@ -284,6 +284,11 @@ public class SaveFile
     /// </summary>
     /// <returns>A JSON string representing the save file's data.</returns>
     public string AsJSON() => this.saveData.ToString(Formatting.None);
+    /// <summary>
+    /// Converts the save file's data to its JSON string representation, but pretty.
+    /// </summary>
+    /// <returns>A JSON string representing the save file's data with formatting.</returns>
+    public string AsJSONPretty() => this.saveData.ToString(Formatting.Indented);
 
     /// <summary>
     /// Loads a Skate Story save file from the specified file path.
@@ -377,11 +382,14 @@ public class SaveFile
 
         return;
 
-        // sets a var in the 'dict.entries' array
+        // sets a var in the 'dict.entries' array if it's there
         void SetVar(string key, JToken value)
         {
-            int index = vars.First(pair => pair.Item.Value<string>("key")!.Equals(key)).Index;
-            this.saveData["dict"]!["entries"]![index]!["val"] = value;
+            (int Index, JObject Item) matchingVar = vars.FirstOrDefault(pair => pair.Item.Value<string>("key")!.Equals(key));
+            if (matchingVar.Item != null)
+            {
+                this.saveData["dict"]!["entries"]![matchingVar.Index]!["val"] = value;
+            }
         }
     }
     public void SetDeaths(int newDeaths)
@@ -429,12 +437,11 @@ public class SaveFile
     /// <returns>
     /// A string representing the full path to the default save file if it exists; otherwise, <see langword="null"/>.
     /// </returns>
-    internal static string? GetSaveFilePath()
+    internal static string? FindSaveFilePath()
     {
         // "AppData\LocalLow\by Sam Eng\SKATE STORY"
         string appDataPath = Path.Combine(LocalLow, "by Sam Eng", "SKATE STORY");
-        string saveFilePath = Path.Combine(appDataPath, FILE_NAME);
-
+        string saveFilePath = Path.Combine(appDataPath, FILE);
         return File.Exists(saveFilePath) ? saveFilePath : null;
     }
 
