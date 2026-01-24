@@ -1,5 +1,8 @@
 ![Skate Story marketing banner](https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1263240/fcd83e0b0fdddef3f4db4718fcd3a84f184dafe3/header.jpg)
 
+# Update as of January 23rd, 2026!
+With the patch released today, this tool is mostly unneeded now (thankfully!). It seems to fix a lot of the softlocks people are experiencing, and introduces a proper New Game+ mode which doesn't wipe achievement stats. This tool should still work though, in case you want to mess around with your save file!
+
 # Skate Story (save file editor)
 This is a quick little tool I wrote up to modify a [Skate Story](https://store.steampowered.com/app/1263240/Skate_Story/) save file. The tool does its best to auto-locate your file and also creates automatic backups.
 
